@@ -19,4 +19,8 @@ class Client extends Authenticatable
     public function items() {
         return $this->hasMany('App\Models\ClientCart');
     }
+
+    public function wishlist() {
+        return $this->hasMany('App\Models\Wishlist');
+    }
 }

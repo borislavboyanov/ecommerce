@@ -31,4 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/client/addCartItem',                  'App\Http\Controllers\Client\ActionController@addCartItem');
     Route::post('/client/editCartItem',                 'App\Http\Controllers\Client\ActionController@editCartItem');
     Route::post('/client/deleteCartItem',               'App\Http\Controllers\Client\ActionController@deleteCartItem');
+    Route::post('/client/addWishlistItem',              'App\Http\Controllers\Client\ActionController@addWishlistItem');
+    Route::post('/client/deleteWishListItem',           'App\Http\Controllers\Client\ActionController@deleteWishListItem');
+
 });

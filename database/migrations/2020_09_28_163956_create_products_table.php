@@ -19,6 +19,9 @@ class CreateProductsTable extends Migration
             $table->longText('description');
             $table->integer('quantity')->unsigned();
             $table->double('price', 6, 2);
+            $table->boolean('featured');
+            $table->boolean('sale');
+            $table->double('sale_percentage', 2);
             $table->timestamps();
         });
     }

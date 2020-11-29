@@ -79,4 +79,38 @@ class ActionController extends Controller
         $item->delete();
         return response()->json(['response' => 'Item successfully deleted.']);
     }
+
+    public function addWishlistItem(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'product_id'    => ['bail', 'required', 'integer']
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        $product = Product::find($request->product_id);
+        if(empty($product)) {
+            return response()->json(['response' => 'Error. That product doesn\'t exist']);
+        }
+        $item = Auth::user()->wishlist()->where('product_id', $request->product_id)->first();
+        if(empty($item)) {
+          Auth::user()->wishlist()->create([
+              'product_id'    => $product->id
+          ]);
+        return response()->json(['response' => 'Successfully added a cart item.']);
+    }
+
+    public function deleteWishlistItem(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'id'    => ['bail', 'required', 'integer']
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+        $item = Auth::user()->wishlist()->find($request->id);
+        if(empty($item)) {
+            return response()->json(['response' => 'Error. That item doesn\'t exist']);
+        }
+        $item->delete();
+        return response()->json(['response' => 'Item successfully deleted.']);
+    }
 }
